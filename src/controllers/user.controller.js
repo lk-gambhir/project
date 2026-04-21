@@ -2,7 +2,7 @@ import { asyncHandler } from "../utils/asyncHandler.js";
 import { ApiError } from "../utils/ApiError.js";
 import { User } from "../models/user.model.js";
 import { uploadoncloudinary } from "../utils/cloudinary.js";
-import ApiResponse from "../utils/ApiResponse.js";
+import  { ApiResponse } from "../utils/ApiResponse.js";
 
 const registeruser = asyncHandler(async (req,res) => {
     const { fullname,username,email,password } = req.body
@@ -16,7 +16,7 @@ const registeruser = asyncHandler(async (req,res) => {
         throw new ApiError(400,"All Fields are required")
     }
 
-    const existeduser = User.findOne({
+    const existeduser = await User.findOne({
         $or : [{username},{email}]
     })
     if(existeduser){
@@ -46,7 +46,7 @@ const registeruser = asyncHandler(async (req,res) => {
         username : username.toLowerCase()
     })
 
-    const createduser = User.findById(user._id).select(
+    const createduser = await User.findById(user._id).select(
         "-password -refreshtokens"
     )
 

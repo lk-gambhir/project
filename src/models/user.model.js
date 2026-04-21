@@ -32,7 +32,7 @@ const userSchema = new mongoose.Schema({
         type : String
     },
     watchhistory : [{
-        type : mongoose.Schema.Types.objectid,
+        type : mongoose.Schema.Types.ObjectId,
         ref : "Video"
     }],
     password : {
@@ -60,7 +60,7 @@ userSchema.methods.isPasswordcorrect = async function (password) {
 }
 
 userSchema.methods.generateAccesstoken = function () {
-    jwt.sign(
+    return jwt.sign(
         {
             _id: this._id,
             username : this.username,
@@ -75,7 +75,7 @@ userSchema.methods.generateAccesstoken = function () {
 }
 
 userSchema.methods.generateRefreshtoken = function () {
-    jwt.sign(
+    return jwt.sign(
         {
             _id: this._id
         },
@@ -86,4 +86,4 @@ userSchema.methods.generateRefreshtoken = function () {
     )
 }
 
-export const User = mongoose.Model("User",userSchema)
+export const User = mongoose.model("User",userSchema)
