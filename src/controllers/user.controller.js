@@ -12,7 +12,7 @@ const registeruser = asyncHandler(async (req,res) => {
     //     throw new ApiError(400,"FullName is required")
     // }
 
-    if([fullname,username,email,password].some((field) => !field || field .trim() === "")){
+    if([fullname,username,email,password].some((field) => !field || field.trim() === "")){
         throw new ApiError(400,"All Fields are required")
     }
 
@@ -23,8 +23,8 @@ const registeruser = asyncHandler(async (req,res) => {
         throw new ApiError(409,"User already exists")
     }
 
-    const avatarlocalpath = req.files?.avatar[0]?.path
-    const coverimagelocalpath = req.files?.coverimage[0]?.path
+    const avatarlocalpath = req.files?.avatar?.[0]?.path;
+    const coverimagelocalpath = req.files?.coverimage?.[0]?.path;
 
     if(!avatarlocalpath){
         throw new ApiError(400,"Avatar file is required")

@@ -1,5 +1,8 @@
-import { v2 as cloudinary} from "cloudinary";
+import { createRequire } from "module";
 import fs from "fs"
+
+const require = createRequire(import.meta.url);
+const cloudinary = require("cloudinary").v2;
 
 cloudinary.config({
     cloud_name : process.env.CLOUDINARY_CLOUD_NAME,
@@ -19,6 +22,7 @@ const uploadoncloudinary = async (filepath) => {
         fs.unlinkSync(filepath)
         return response;
     } catch (error) {
+        console.log("Cloudinary upload error:", error.message)
         fs.unlinkSync(filepath) //remove locally saved temporary file as upload got failed
         return null;
     }

@@ -6,7 +6,7 @@ class ApiError extends Error{
         stack = ""
     ){
         super(message)
-        this.statuscode = statuscode
+        this.statusCode = statuscode
         this.data = null
         this.message = message
         this.success = false
